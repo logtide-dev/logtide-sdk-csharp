@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>10</LangVersion>
+    
+    <!-- Package Info -->
+    <PackageId>LogWard.SDK</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>LogWard</Authors>
+    <Company>LogWard</Company>
+    <Description>Official .NET SDK for LogWard - A powerful log management platform. Features automatic batching, retry logic, circuit breaker, distributed tracing, and ASP.NET Core middleware.</Description>
+    <Copyright>Copyright © 2024 LogWard</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://logward.dev</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/logward-dev/logward-sdk-csharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>logging;log-management;observability;monitoring;distributed-tracing;aspnetcore;middleware</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    
+    <!-- Build Settings -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <!-- Exclude examples and tests from compilation -->
+  <ItemGroup>
+    <Compile Remove="examples\**" />
+    <Compile Remove="tests\**" />
+    <None Remove="examples\**" />
+    <None Remove="tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
