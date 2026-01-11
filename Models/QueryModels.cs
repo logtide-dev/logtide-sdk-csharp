@@ -1,6 +1,6 @@
-using LogWard.SDK.Enums;
+using LogTide.SDK.Enums;
 
-namespace LogWard.SDK.Models;
+namespace LogTide.SDK.Models;
 
 /// <summary>
 /// Options for querying logs.

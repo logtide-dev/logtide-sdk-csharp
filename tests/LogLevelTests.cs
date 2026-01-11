@@ -1,7 +1,7 @@
 using Xunit;
-using LogWard.SDK.Enums;
+using LogTide.SDK.Enums;
 
-namespace LogWard.SDK.Tests;
+namespace LogTide.SDK.Tests;
 
 public class LogLevelTests
 {

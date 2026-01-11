@@ -1,16 +1,16 @@
-using LogWard.SDK;
-using LogWard.SDK.Middleware;
-using LogWard.SDK.Models;
+using LogTide.SDK;
+using LogTide.SDK.Middleware;
+using LogTide.SDK.Models;
 
-// ASP.NET Core Minimal API example with LogWard middleware
+// ASP.NET Core Minimal API example with LogTide middleware
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add LogWard client to DI container
-builder.Services.AddLogWard(new ClientOptions
+// Add LogTide client to DI container
+builder.Services.AddLogTide(new ClientOptions
 {
-    ApiUrl = builder.Configuration["LogWard:ApiUrl"] ?? "http://localhost:8080",
-    ApiKey = builder.Configuration["LogWard:ApiKey"] ?? "lp_your_api_key_here",
+    ApiUrl = builder.Configuration["LogTide:ApiUrl"] ?? "http://localhost:8080",
+    ApiKey = builder.Configuration["LogTide:ApiKey"] ?? "lp_your_api_key_here",
     Debug = builder.Environment.IsDevelopment(),
     GlobalMetadata = new Dictionary<string, object?>
     {
@@ -21,8 +21,8 @@ builder.Services.AddLogWard(new ClientOptions
 
 var app = builder.Build();
 
-// Add LogWard middleware for automatic HTTP logging
-app.UseLogWard(options =>
+// Add LogTide middleware for automatic HTTP logging
+app.UseLogTide(options =>
 {
     options.ServiceName = "aspnet-example";
     options.LogRequests = true;
@@ -36,14 +36,14 @@ app.UseLogWard(options =>
 app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
 
 // Basic endpoint
-app.MapGet("/", (LogWardClient logger) =>
+app.MapGet("/", (LogTideClient logger) =>
 {
     logger.Info("aspnet-example", "Home page accessed");
     return Results.Ok(new { message = "Hello, World!" });
 });
 
 // Endpoint with custom logging
-app.MapGet("/users/{id}", (int id, LogWardClient logger) =>
+app.MapGet("/users/{id}", (int id, LogTideClient logger) =>
 {
     logger.Info("aspnet-example", $"Fetching user {id}", new Dictionary<string, object?>
     {
@@ -65,7 +65,7 @@ app.MapGet("/error", () =>
 });
 
 // Endpoint with trace ID context
-app.MapGet("/process", async (LogWardClient logger) =>
+app.MapGet("/process", async (LogTideClient logger) =>
 {
     await logger.WithTraceId(Guid.NewGuid().ToString(), async () =>
     {
@@ -85,7 +85,7 @@ app.MapGet("/process", async (LogWardClient logger) =>
 });
 
 // Metrics endpoint
-app.MapGet("/metrics", (LogWardClient logger) =>
+app.MapGet("/metrics", (LogTideClient logger) =>
 {
     var metrics = logger.GetMetrics();
     return Results.Ok(new
@@ -103,7 +103,7 @@ app.MapGet("/metrics", (LogWardClient logger) =>
 // Graceful shutdown
 app.Lifetime.ApplicationStopping.Register(async () =>
 {
-    var logger = app.Services.GetRequiredService<LogWardClient>();
+    var logger = app.Services.GetRequiredService<LogTideClient>();
     await logger.FlushAsync();
     Console.WriteLine("Logs flushed on shutdown");
 });

@@ -1,11 +1,11 @@
 using Xunit;
-using LogWard.SDK.Enums;
-using LogWard.SDK.Exceptions;
-using LogWard.SDK.Models;
+using LogTide.SDK.Enums;
+using LogTide.SDK.Exceptions;
+using LogTide.SDK.Models;
 
-namespace LogWard.SDK.Tests;
+namespace LogTide.SDK.Tests;
 
-public class LogWardClientTests
+public class LogTideClientTests
 {
     private static ClientOptions CreateTestOptions() => new()
     {
@@ -19,14 +19,14 @@ public class LogWardClientTests
     public void Constructor_ThrowsOnNullOptions()
     {
         // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => new LogWardClient(null!));
+        Assert.Throws<ArgumentNullException>(() => new LogTideClient(null!));
     }
 
     [Fact]
     public void SetTraceId_SetsAndGetsTraceId()
     {
         // Arrange
-        using var client = new LogWardClient(CreateTestOptions());
+        using var client = new LogTideClient(CreateTestOptions());
         var traceId = "test-trace-123";
 
         // Act
@@ -41,7 +41,7 @@ public class LogWardClientTests
     public void SetTraceId_Null_ClearsTraceId()
     {
         // Arrange
-        using var client = new LogWardClient(CreateTestOptions());
+        using var client = new LogTideClient(CreateTestOptions());
         client.SetTraceId("test-trace");
 
         // Act
@@ -55,7 +55,7 @@ public class LogWardClientTests
     public void WithTraceId_ScopedContext_RestoresPreviousTraceId()
     {
         // Arrange
-        using var client = new LogWardClient(CreateTestOptions());
+        using var client = new LogTideClient(CreateTestOptions());
         var originalTraceId = "original-trace";
         var scopedTraceId = "scoped-trace";
         client.SetTraceId(originalTraceId);
@@ -76,7 +76,7 @@ public class LogWardClientTests
     public void WithNewTraceId_GeneratesNewTraceId()
     {
         // Arrange
-        using var client = new LogWardClient(CreateTestOptions());
+        using var client = new LogTideClient(CreateTestOptions());
         string? generatedTraceId = null;
 
         // Act
@@ -94,7 +94,7 @@ public class LogWardClientTests
     public void Log_AddsToBuffer()
     {
         // Arrange
-        using var client = new LogWardClient(CreateTestOptions());
+        using var client = new LogTideClient(CreateTestOptions());
 
         // Act
         client.Info("test", "Test message");
@@ -114,7 +114,7 @@ public class LogWardClientTests
             ["env"] = "test",
             ["version"] = "1.0.0"
         };
-        using var client = new LogWardClient(options);
+        using var client = new LogTideClient(options);
 
         // Act - log with partial metadata
         client.Info("test", "Test message", new Dictionary<string, object?>
@@ -132,7 +132,7 @@ public class LogWardClientTests
         // Arrange
         var options = CreateTestOptions();
         options.AutoTraceId = true;
-        using var client = new LogWardClient(options);
+        using var client = new LogTideClient(options);
 
         // Act
         client.Info("test", "Test message");
@@ -146,7 +146,7 @@ public class LogWardClientTests
     public void GetMetrics_ReturnsClone()
     {
         // Arrange
-        using var client = new LogWardClient(CreateTestOptions());
+        using var client = new LogTideClient(CreateTestOptions());
 
         // Act
         var metrics1 = client.GetMetrics();
@@ -160,7 +160,7 @@ public class LogWardClientTests
     public void ResetMetrics_ClearsAllMetrics()
     {
         // Arrange
-        using var client = new LogWardClient(CreateTestOptions());
+        using var client = new LogTideClient(CreateTestOptions());
         
         // Act
         client.ResetMetrics();
@@ -179,7 +179,7 @@ public class LogWardClientTests
     public void GetCircuitBreakerState_ReturnsClosedInitially()
     {
         // Arrange & Act
-        using var client = new LogWardClient(CreateTestOptions());
+        using var client = new LogTideClient(CreateTestOptions());
 
         // Assert
         Assert.Equal(CircuitState.Closed, client.GetCircuitBreakerState());
@@ -189,7 +189,7 @@ public class LogWardClientTests
     public void Error_WithException_SerializesError()
     {
         // Arrange
-        using var client = new LogWardClient(CreateTestOptions());
+        using var client = new LogTideClient(CreateTestOptions());
         var exception = new InvalidOperationException("Test error");
 
         // Act - should not throw
@@ -203,7 +203,7 @@ public class LogWardClientTests
     public void Critical_WithException_SerializesError()
     {
         // Arrange
-        using var client = new LogWardClient(CreateTestOptions());
+        using var client = new LogTideClient(CreateTestOptions());
         var exception = new ApplicationException("Critical error",
             new InvalidOperationException("Inner error"));
 

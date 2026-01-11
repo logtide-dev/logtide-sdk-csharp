@@ -1,7 +1,7 @@
-namespace LogWard.SDK.Enums;
+namespace LogTide.SDK.Enums;
 
 /// <summary>
-/// Log severity levels supported by LogWard.
+/// Log severity levels supported by LogTide.
 /// </summary>
 public enum LogLevel
 {

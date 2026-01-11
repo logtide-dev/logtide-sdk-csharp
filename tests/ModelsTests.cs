@@ -1,8 +1,8 @@
 using Xunit;
-using LogWard.SDK.Models;
-using LogWard.SDK.Enums;
+using LogTide.SDK.Models;
+using LogTide.SDK.Enums;
 
-namespace LogWard.SDK.Tests;
+namespace LogTide.SDK.Tests;
 
 public class ModelsTests
 {

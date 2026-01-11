@@ -1,31 +1,31 @@
-namespace LogWard.SDK.Exceptions;
+namespace LogTide.SDK.Exceptions;
 
 /// <summary>
-/// Base exception for LogWard SDK errors.
+/// Base exception for LogTide SDK errors.
 /// </summary>
-public class LogWardException : Exception
+public class LogTideException : Exception
 {
     /// <summary>
-    /// Creates a new LogWardException.
+    /// Creates a new LogTideException.
     /// </summary>
-    public LogWardException() : base() { }
+    public LogTideException() : base() { }
 
     /// <summary>
-    /// Creates a new LogWardException with a message.
+    /// Creates a new LogTideException with a message.
     /// </summary>
-    public LogWardException(string message) : base(message) { }
+    public LogTideException(string message) : base(message) { }
 
     /// <summary>
-    /// Creates a new LogWardException with a message and inner exception.
+    /// Creates a new LogTideException with a message and inner exception.
     /// </summary>
-    public LogWardException(string message, Exception innerException) 
+    public LogTideException(string message, Exception innerException) 
         : base(message, innerException) { }
 }
 
 /// <summary>
 /// Exception thrown when the log buffer is full.
 /// </summary>
-public class BufferFullException : LogWardException
+public class BufferFullException : LogTideException
 {
     /// <summary>
     /// Creates a new BufferFullException.
@@ -42,7 +42,7 @@ public class BufferFullException : LogWardException
 /// <summary>
 /// Exception thrown when the circuit breaker is open.
 /// </summary>
-public class CircuitBreakerOpenException : LogWardException
+public class CircuitBreakerOpenException : LogTideException
 {
     /// <summary>
     /// Creates a new CircuitBreakerOpenException.
@@ -59,7 +59,7 @@ public class CircuitBreakerOpenException : LogWardException
 /// <summary>
 /// Exception thrown when an API request fails.
 /// </summary>
-public class ApiException : LogWardException
+public class ApiException : LogTideException
 {
     /// <summary>
     /// HTTP status code of the failed request.

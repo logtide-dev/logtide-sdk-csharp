@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LogWard.SDK.csproj" />
+    <ProjectReference Include="..\LogTide.SDK.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-namespace LogWard.SDK.Enums;
+namespace LogTide.SDK.Enums;
 
 /// <summary>
 /// Circuit breaker states for fault tolerance.

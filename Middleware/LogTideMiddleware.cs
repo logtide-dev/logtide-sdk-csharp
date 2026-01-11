@@ -1,19 +1,19 @@
 using System.Diagnostics;
-using LogWard.SDK.Enums;
-using LogWard.SDK.Models;
+using LogTide.SDK.Enums;
+using LogTide.SDK.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace LogWard.SDK.Middleware;
+namespace LogTide.SDK.Middleware;
 
 /// <summary>
-/// Options for LogWard ASP.NET Core middleware.
+/// Options for LogTide ASP.NET Core middleware.
 /// </summary>
-public class LogWardMiddlewareOptions
+public class LogTideMiddlewareOptions
 {
     /// <summary>
-    /// LogWard client instance.
+    /// LogTide client instance.
     /// </summary>
-    public LogWardClient? Client { get; set; }
+    public LogTideClient? Client { get; set; }
 
     /// <summary>
     /// Service name to use in logs.
@@ -59,21 +59,21 @@ public class LogWardMiddlewareOptions
 /// <summary>
 /// ASP.NET Core middleware for automatic HTTP request/response logging.
 /// </summary>
-public class LogWardMiddleware
+public class LogTideMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly LogWardMiddlewareOptions _options;
+    private readonly LogTideMiddlewareOptions _options;
 
     /// <summary>
-    /// Creates a new LogWard middleware instance.
+    /// Creates a new LogTide middleware instance.
     /// </summary>
-    public LogWardMiddleware(RequestDelegate next, LogWardMiddlewareOptions options)
+    public LogTideMiddleware(RequestDelegate next, LogTideMiddlewareOptions options)
     {
         _next = next ?? throw new ArgumentNullException(nameof(next));
         _options = options ?? throw new ArgumentNullException(nameof(options));
         
         if (_options.Client == null)
-            throw new ArgumentNullException(nameof(options), "LogWardMiddlewareOptions.Client cannot be null");
+            throw new ArgumentNullException(nameof(options), "LogTideMiddlewareOptions.Client cannot be null");
     }
 
     /// <summary>

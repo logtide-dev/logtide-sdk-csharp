@@ -1,4 +1,4 @@
-namespace LogWard.SDK.Models;
+namespace LogTide.SDK.Models;
 
 /// <summary>
 /// Internal SDK metrics for monitoring.

@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace LogWard.SDK.Internal;
+namespace LogTide.SDK.Internal;
 
 /// <summary>
 /// JSON serialization options for the SDK.

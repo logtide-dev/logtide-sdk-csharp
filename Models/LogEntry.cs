@@ -1,10 +1,10 @@
 using System.Text.Json.Serialization;
-using LogWard.SDK.Enums;
+using LogTide.SDK.Enums;
 
-namespace LogWard.SDK.Models;
+namespace LogTide.SDK.Models;
 
 /// <summary>
-/// Represents a single log entry to be sent to LogWard.
+/// Represents a single log entry to be sent to LogTide.
 /// </summary>
 public class LogEntry
 {

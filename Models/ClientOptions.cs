@@ -1,12 +1,12 @@
-namespace LogWard.SDK.Models;
+namespace LogTide.SDK.Models;
 
 /// <summary>
-/// Configuration options for LogWardClient.
+/// Configuration options for LogTideClient.
 /// </summary>
 public class ClientOptions
 {
     /// <summary>
-    /// Base URL of the LogWard API (e.g., "https://logward.dev" or "http://localhost:8080").
+    /// Base URL of the LogTide API (e.g., "https://logward.dev" or "http://localhost:8080").
     /// </summary>
     public string ApiUrl { get; set; } = string.Empty;
 

@@ -1,6 +1,6 @@
-using LogWard.SDK.Enums;
+using LogTide.SDK.Enums;
 
-namespace LogWard.SDK.Internal;
+namespace LogTide.SDK.Internal;
 
 /// <summary>
 /// Circuit breaker implementation for fault tolerance.

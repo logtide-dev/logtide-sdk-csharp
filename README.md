@@ -1,6 +1,6 @@
-# LogWard .NET SDK
+# LogTide .NET SDK
 
-Official .NET SDK for LogWard with advanced features: retry logic, circuit breaker, query API, distributed tracing, and ASP.NET Core middleware support.
+Official .NET SDK for LogTide with advanced features: retry logic, circuit breaker, query API, distributed tracing, and ASP.NET Core middleware support.
 
 ## Features
 
@@ -21,22 +21,22 @@ Official .NET SDK for LogWard with advanced features: retry logic, circuit break
 ## Installation
 
 ```bash
-dotnet add package LogWard.SDK
+dotnet add package LogTide.SDK
 ```
 
 Or via Package Manager:
 
 ```powershell
-Install-Package LogWard.SDK
+Install-Package LogTide.SDK
 ```
 
 ## Quick Start
 
 ```csharp
-using LogWard.SDK;
-using LogWard.SDK.Models;
+using LogTide.SDK;
+using LogTide.SDK.Models;
 
-var client = new LogWardClient(new ClientOptions
+var client = new LogTideClient(new ClientOptions
 {
     ApiUrl = "http://localhost:8080",
     ApiKey = "lp_your_api_key_here"
@@ -58,7 +58,7 @@ await client.DisposeAsync();
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `ApiUrl` | `string` | **required** | Base URL of your LogWard instance |
+| `ApiUrl` | `string` | **required** | Base URL of your LogTide instance |
 | `ApiKey` | `string` | **required** | Project API key (starts with `lp_`) |
 | `BatchSize` | `int` | `100` | Number of logs to batch before sending |
 | `FlushIntervalMs` | `int` | `5000` | Interval in ms to auto-flush logs |
@@ -81,7 +81,7 @@ await client.DisposeAsync();
 ### Example: Full Configuration
 
 ```csharp
-var client = new LogWardClient(new ClientOptions
+var client = new LogTideClient(new ClientOptions
 {
     ApiUrl = "http://localhost:8080",
     ApiKey = "lp_your_api_key_here",
@@ -305,17 +305,17 @@ client.ResetMetrics();
 **Program.cs:**
 
 ```csharp
-using LogWard.SDK;
-using LogWard.SDK.Middleware;
-using LogWard.SDK.Models;
+using LogTide.SDK;
+using LogTide.SDK.Middleware;
+using LogTide.SDK.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add LogWard
-builder.Services.AddLogWard(new ClientOptions
+// Add LogTide
+builder.Services.AddLogTide(new ClientOptions
 {
-    ApiUrl = builder.Configuration["LogWard:ApiUrl"]!,
-    ApiKey = builder.Configuration["LogWard:ApiKey"]!,
+    ApiUrl = builder.Configuration["LogTide:ApiUrl"]!,
+    ApiKey = builder.Configuration["LogTide:ApiKey"]!,
     GlobalMetadata = new()
     {
         ["env"] = builder.Environment.EnvironmentName
@@ -325,7 +325,7 @@ builder.Services.AddLogWard(new ClientOptions
 var app = builder.Build();
 
 // Add middleware for auto-logging HTTP requests
-app.UseLogWard(options =>
+app.UseLogTide(options =>
 {
     options.ServiceName = "my-api";
     options.LogRequests = true;
@@ -353,16 +353,16 @@ app.Run();
 | `SkipPaths` | `HashSet<string>` | `{}` | Paths to skip |
 | `TraceIdHeader` | `string` | `"X-Trace-Id"` | Header for trace ID |
 
-### Using LogWard in Controllers
+### Using LogTide in Controllers
 
 ```csharp
 [ApiController]
 [Route("[controller]")]
 public class WeatherController : ControllerBase
 {
-    private readonly LogWardClient _logger;
+    private readonly LogTideClient _logger;
 
-    public WeatherController(LogWardClient logger)
+    public WeatherController(LogTideClient logger)
     {
         _logger = logger;
     }
@@ -393,7 +393,7 @@ public class WeatherController : ControllerBase
 ### 1. Always Dispose on Shutdown
 
 ```csharp
-var client = new LogWardClient(options);
+var client = new LogTideClient(options);
 
 // ... use client
 
@@ -408,7 +408,7 @@ var app = builder.Build();
 
 app.Lifetime.ApplicationStopping.Register(async () =>
 {
-    var logger = app.Services.GetRequiredService<LogWardClient>();
+    var logger = app.Services.GetRequiredService<LogTideClient>();
     await logger.FlushAsync();
 });
 ```
@@ -416,7 +416,7 @@ app.Lifetime.ApplicationStopping.Register(async () =>
 ### 2. Use Global Metadata
 
 ```csharp
-var client = new LogWardClient(new ClientOptions
+var client = new LogTideClient(new ClientOptions
 {
     ApiUrl = "...",
     ApiKey = "...",
@@ -432,7 +432,7 @@ var client = new LogWardClient(new ClientOptions
 ### 3. Enable Debug Mode in Development
 
 ```csharp
-var client = new LogWardClient(new ClientOptions
+var client = new LogTideClient(new ClientOptions
 {
     ApiUrl = "...",
     ApiKey = "...",
@@ -469,12 +469,12 @@ _ = Task.Run(async () =>
 
 ## API Reference
 
-### LogWardClient
+### LogTideClient
 
 #### Constructor
 ```csharp
-new LogWardClient(ClientOptions options)
-new LogWardClient(ClientOptions options, HttpClient httpClient)
+new LogTideClient(ClientOptions options)
+new LogTideClient(ClientOptions options, HttpClient httpClient)
 ```
 
 #### Logging Methods
@@ -528,11 +528,11 @@ MIT
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or PR on [GitHub](https://github.com/logward-dev/logward-sdk-csharp).
+Contributions are welcome! Please open an issue or PR on [GitHub](https://github.com/logtide-dev/logtide-sdk-csharp).
 
 ---
 
 ## Support
 
-- **Documentation**: [https://logward.dev/docs](https://logward.dev/docs)
-- **Issues**: [GitHub Issues](https://github.com/logward-dev/logward-sdk-csharp/issues)
+- **Documentation**: [https://logtide.dev/docs](https://logtide.dev/docs)
+- **Issues**: [GitHub Issues](https://github.com/logtide-dev/logtide-sdk-csharp/issues)

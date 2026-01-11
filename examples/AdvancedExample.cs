@@ -1,14 +1,14 @@
-using LogWard.SDK;
-using LogWard.SDK.Models;
-using LogWard.SDK.Enums;
+using LogTide.SDK;
+using LogTide.SDK.Models;
+using LogTide.SDK.Enums;
 
 // Advanced usage example with all features
 
-Console.WriteLine("LogWard SDK - Advanced Example");
+Console.WriteLine("LogTide SDK - Advanced Example");
 Console.WriteLine("==============================\n");
 
 // Create client with full configuration
-var client = new LogWardClient(new ClientOptions
+var client = new LogTideClient(new ClientOptions
 {
     ApiUrl = "http://localhost:8080",
     ApiKey = "lp_your_api_key_here",

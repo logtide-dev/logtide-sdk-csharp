@@ -1,13 +1,13 @@
-using LogWard.SDK;
-using LogWard.SDK.Models;
+using LogTide.SDK;
+using LogTide.SDK.Models;
 
 // Basic usage example
 
-Console.WriteLine("LogWard SDK - Basic Example");
+Console.WriteLine("LogTide SDK - Basic Example");
 Console.WriteLine("===========================\n");
 
 // Create client
-var client = new LogWardClient(new ClientOptions
+var client = new LogTideClient(new ClientOptions
 {
     ApiUrl = "http://localhost:8080",
     ApiKey = "lp_your_api_key_here",

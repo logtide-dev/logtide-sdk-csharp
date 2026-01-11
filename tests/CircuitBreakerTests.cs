@@ -1,8 +1,8 @@
 using Xunit;
-using LogWard.SDK.Enums;
-using LogWard.SDK.Internal;
+using LogTide.SDK.Enums;
+using LogTide.SDK.Internal;
 
-namespace LogWard.SDK.Tests;
+namespace LogTide.SDK.Tests;
 
 public class CircuitBreakerTests
 {

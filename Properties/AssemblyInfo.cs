@@ -1,3 +1,3 @@
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("LogWard.SDK.Tests")]
+[assembly: InternalsVisibleTo("LogTide.SDK.Tests")]

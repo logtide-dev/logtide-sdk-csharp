@@ -1,12 +1,12 @@
-using LogWard.SDK;
-using LogWard.SDK.Models;
+using LogTide.SDK;
+using LogTide.SDK.Models;
 
 // Query API example
 
-Console.WriteLine("LogWard SDK - Query API Example");
+Console.WriteLine("LogTide SDK - Query API Example");
 Console.WriteLine("================================\n");
 
-var client = new LogWardClient(new ClientOptions
+var client = new LogTideClient(new ClientOptions
 {
     ApiUrl = "http://localhost:8080",
     ApiKey = "lp_your_api_key_here"
@@ -57,7 +57,7 @@ try
     var result = await client.QueryAsync(new QueryOptions
     {
         Service = "query-example",
-        Level = LogWard.SDK.Enums.LogLevel.Info,
+        Level = LogTide.SDK.Enums.LogLevel.Info,
         From = DateTime.UtcNow.AddHours(-1),
         To = DateTime.UtcNow,
         Limit = 10

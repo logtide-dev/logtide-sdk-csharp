@@ -2,21 +2,21 @@ using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using LogWard.SDK.Enums;
-using LogWard.SDK.Exceptions;
-using LogWard.SDK.Internal;
-using LogWard.SDK.Models;
+using LogTide.SDK.Enums;
+using LogTide.SDK.Exceptions;
+using LogTide.SDK.Internal;
+using LogTide.SDK.Models;
 
-namespace LogWard.SDK;
+namespace LogTide.SDK;
 
 /// <summary>
-/// Main LogWard SDK client for sending and querying logs.
+/// Main LogTide SDK client for sending and querying logs.
 /// </summary>
 /// <remarks>
 /// This client provides automatic batching, retry logic with exponential backoff,
 /// circuit breaker pattern for fault tolerance, and comprehensive query capabilities.
 /// </remarks>
-public class LogWardClient : IDisposable, IAsyncDisposable
+public class LogTideClient : IDisposable, IAsyncDisposable
 {
     private readonly ClientOptions _options;
     private readonly HttpClient _httpClient;
@@ -32,10 +32,10 @@ public class LogWardClient : IDisposable, IAsyncDisposable
     private bool _disposed;
 
     /// <summary>
-    /// Creates a new LogWard client.
+    /// Creates a new LogTide client.
     /// </summary>
     /// <param name="options">Client configuration options.</param>
-    public LogWardClient(ClientOptions options)
+    public LogTideClient(ClientOptions options)
     {
         _options = options ?? throw new ArgumentNullException(nameof(options));
         
@@ -63,14 +63,14 @@ public class LogWardClient : IDisposable, IAsyncDisposable
 
         if (_options.Debug)
         {
-            Console.WriteLine($"[LogWard] Client initialized: {options.ApiUrl}");
+            Console.WriteLine($"[LogTide] Client initialized: {options.ApiUrl}");
         }
     }
 
     /// <summary>
-    /// Creates a new LogWard client with an existing HttpClient (for DI scenarios).
+    /// Creates a new LogTide client with an existing HttpClient (for DI scenarios).
     /// </summary>
-    public LogWardClient(ClientOptions options, HttpClient httpClient)
+    public LogTideClient(ClientOptions options, HttpClient httpClient)
     {
         _options = options ?? throw new ArgumentNullException(nameof(options));
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
@@ -91,7 +91,7 @@ public class LogWardClient : IDisposable, IAsyncDisposable
 
         if (_options.Debug)
         {
-            Console.WriteLine($"[LogWard] Client initialized with custom HttpClient: {options.ApiUrl}");
+            Console.WriteLine($"[LogTide] Client initialized with custom HttpClient: {options.ApiUrl}");
         }
     }
 
@@ -212,7 +212,7 @@ public class LogWardClient : IDisposable, IAsyncDisposable
 
                 if (_options.Debug)
                 {
-                    Console.WriteLine($"[LogWard] Buffer full, dropping log: {entry.Message}");
+                    Console.WriteLine($"[LogTide] Buffer full, dropping log: {entry.Message}");
                 }
 
                 throw new BufferFullException();
@@ -336,7 +336,7 @@ public class LogWardClient : IDisposable, IAsyncDisposable
     #region Flush
 
     /// <summary>
-    /// Flushes buffered logs to the LogWard API.
+    /// Flushes buffered logs to the LogTide API.
     /// </summary>
     public async Task FlushAsync(CancellationToken cancellationToken = default)
     {
@@ -370,7 +370,7 @@ public class LogWardClient : IDisposable, IAsyncDisposable
                 {
                     if (_options.Debug)
                     {
-                        Console.WriteLine("[LogWard] Circuit breaker OPEN, skipping send");
+                        Console.WriteLine("[LogTide] Circuit breaker OPEN, skipping send");
                     }
 
                     lock (_metricsLock)
@@ -397,7 +397,7 @@ public class LogWardClient : IDisposable, IAsyncDisposable
 
                 if (_options.Debug)
                 {
-                    Console.WriteLine($"[LogWard] Sent {logs.Count} logs ({stopwatch.ElapsedMilliseconds}ms)");
+                    Console.WriteLine($"[LogTide] Sent {logs.Count} logs ({stopwatch.ElapsedMilliseconds}ms)");
                 }
 
                 return;
@@ -425,14 +425,14 @@ public class LogWardClient : IDisposable, IAsyncDisposable
                 {
                     if (_options.Debug)
                     {
-                        Console.WriteLine($"[LogWard] Failed to send logs after {attempt} attempts: {ex.Message}");
+                        Console.WriteLine($"[LogTide] Failed to send logs after {attempt} attempts: {ex.Message}");
                     }
                     break;
                 }
 
                 if (_options.Debug)
                 {
-                    Console.WriteLine($"[LogWard] Retry {attempt}/{_options.MaxRetries} in {delay}ms: {ex.Message}");
+                    Console.WriteLine($"[LogTide] Retry {attempt}/{_options.MaxRetries} in {delay}ms: {ex.Message}");
                 }
 
                 await Task.Delay(delay, cancellationToken);
@@ -663,7 +663,7 @@ public class LogWardClient : IDisposable, IAsyncDisposable
         
         if (_options.Debug)
         {
-            Console.WriteLine("[LogWard] Client disposed");
+            Console.WriteLine("[LogTide] Client disposed");
         }
         
         GC.SuppressFinalize(this);
@@ -682,7 +682,7 @@ public class LogWardClient : IDisposable, IAsyncDisposable
             
             if (_options.Debug)
             {
-                Console.WriteLine("[LogWard] Client disposed");
+                Console.WriteLine("[LogTide] Client disposed");
             }
         }
     }

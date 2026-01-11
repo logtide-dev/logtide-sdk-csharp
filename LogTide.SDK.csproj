@@ -7,15 +7,15 @@
     <LangVersion>10</LangVersion>
     
     <!-- Package Info -->
-    <PackageId>LogWard.SDK</PackageId>
+    <PackageId>LogTide.SDK</PackageId>
     <Version>0.1.0</Version>
-    <Authors>LogWard</Authors>
-    <Company>LogWard</Company>
-    <Description>Official .NET SDK for LogWard - A powerful log management platform. Features automatic batching, retry logic, circuit breaker, distributed tracing, and ASP.NET Core middleware.</Description>
-    <Copyright>Copyright © 2024 LogWard</Copyright>
+    <Authors>LogTide</Authors>
+    <Company>LogTide</Company>
+    <Description>Official .NET SDK for LogTide - A powerful log management platform. Features automatic batching, retry logic, circuit breaker, distributed tracing, and ASP.NET Core middleware.</Description>
+    <Copyright>Copyright © 2024 LogTide</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://logward.dev</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/logward-dev/logward-sdk-csharp</RepositoryUrl>
+    <PackageProjectUrl>https://logtide.dev</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/logtide-dev/logtide-sdk-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>logging;log-management;observability;monitoring;distributed-tracing;aspnetcore;middleware</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
