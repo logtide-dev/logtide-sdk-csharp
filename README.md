@@ -1,22 +1,41 @@
-# LogTide .NET SDK
+<p align="center">
+  <img src="https://raw.githubusercontent.com/logtide-dev/logtide/main/docs/images/logo.png" alt="LogTide Logo" width="400">
+</p>
 
-Official .NET SDK for LogTide with advanced features: retry logic, circuit breaker, query API, distributed tracing, and ASP.NET Core middleware support.
+<h1 align="center">LogTide .NET SDK</h1>
+
+<p align="center">
+  <a href="https://www.nuget.org/packages/LogTide.SDK"><img src="https://img.shields.io/nuget/v/LogTide.SDK?color=blue" alt="NuGet"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License"></a>
+  <a href="https://dotnet.microsoft.com/"><img src="https://img.shields.io/badge/.NET-6.0+-purple.svg" alt=".NET"></a>
+  <a href="https://github.com/logtide-dev/logtide-sdk-csharp/releases"><img src="https://img.shields.io/github/v/release/logtide-dev/logtide-sdk-csharp" alt="Release"></a>
+</p>
+
+<p align="center">
+  Official .NET SDK for <a href="https://logtide.dev">LogTide</a> with automatic batching, retry logic, circuit breaker, query API, distributed tracing, and ASP.NET Core middleware support.
+</p>
+
+---
 
 ## Features
 
-- ✅ **Automatic batching** with configurable size and interval
-- ✅ **Retry logic** with exponential backoff
-- ✅ **Circuit breaker** pattern for fault tolerance
-- ✅ **Max buffer size** with drop policy to prevent memory leaks
-- ✅ **Query API** for searching and filtering logs
-- ✅ **Trace ID context** for distributed tracing
-- ✅ **Global metadata** added to all logs
-- ✅ **Structured error serialization**
-- ✅ **Internal metrics** (logs sent, errors, latency, etc.)
-- ✅ **ASP.NET Core middleware** for auto-logging HTTP requests
-- ✅ **Dependency injection support**
-- ✅ **Full async/await support**
-- ✅ **Thread-safe**
+- **Automatic batching** with configurable size and interval
+- **Retry logic** with exponential backoff
+- **Circuit breaker** pattern for fault tolerance
+- **Max buffer size** with drop policy to prevent memory leaks
+- **Query API** for searching and filtering logs
+- **Trace ID context** for distributed tracing
+- **Global metadata** added to all logs
+- **Structured error serialization**
+- **Internal metrics** (logs sent, errors, latency, etc.)
+- **ASP.NET Core middleware** for auto-logging HTTP requests
+- **Dependency injection support**
+- **Full async/await support**
+- **Thread-safe**
+
+## Requirements
+
+- .NET 6.0, 7.0, or 8.0
 
 ## Installation
 
@@ -93,7 +112,7 @@ var client = new LogTideClient(new ClientOptions
     // Buffer management
     MaxBufferSize = 10000,
 
-    // Retry with exponential backoff (1s → 2s → 4s)
+    // Retry with exponential backoff (1s -> 2s -> 4s)
     MaxRetries = 3,
     RetryDelayMs = 1000,
 
@@ -157,20 +176,6 @@ Generated log metadata:
     "stack": "at Program.Main() in ..."
   }
 }
-```
-
-### Custom Log Entry
-
-```csharp
-client.Log(new LogEntry
-{
-    Service = "custom-service",
-    Level = LogLevel.Info,
-    Message = "Custom log",
-    Time = DateTime.UtcNow.ToString("O"),
-    Metadata = new() { ["key"] = "value" },
-    TraceId = "custom-trace-id"
-});
 ```
 
 ---
@@ -371,7 +376,7 @@ public class WeatherController : ControllerBase
     public IActionResult Get()
     {
         _logger.Info("weather-api", "Fetching weather data");
-        
+
         try
         {
             // ... business logic
@@ -440,99 +445,24 @@ var client = new LogTideClient(new ClientOptions
 });
 ```
 
-### 4. Monitor Metrics in Production
-
-```csharp
-// Periodic health check
-_ = Task.Run(async () =>
-{
-    while (true)
-    {
-        await Task.Delay(TimeSpan.FromMinutes(1));
-        
-        var metrics = client.GetMetrics();
-        
-        if (metrics.LogsDropped > 0)
-        {
-            Console.WriteLine($"Warning: {metrics.LogsDropped} logs dropped");
-        }
-        
-        if (client.GetCircuitBreakerState() == CircuitState.Open)
-        {
-            Console.WriteLine("Error: Circuit breaker is OPEN!");
-        }
-    }
-});
-```
-
 ---
 
-## API Reference
+## Examples
 
-### LogTideClient
-
-#### Constructor
-```csharp
-new LogTideClient(ClientOptions options)
-new LogTideClient(ClientOptions options, HttpClient httpClient)
-```
-
-#### Logging Methods
-- `Log(LogEntry entry)`
-- `Debug(string service, string message, Dictionary<string, object?>? metadata = null)`
-- `Info(string service, string message, Dictionary<string, object?>? metadata = null)`
-- `Warn(string service, string message, Dictionary<string, object?>? metadata = null)`
-- `Error(string service, string message, Dictionary<string, object?>? metadata = null)`
-- `Error(string service, string message, Exception exception)`
-- `Critical(string service, string message, Dictionary<string, object?>? metadata = null)`
-- `Critical(string service, string message, Exception exception)`
-
-#### Context Methods
-- `SetTraceId(string? traceId)`
-- `GetTraceId(): string?`
-- `WithTraceId(string traceId, Action action)`
-- `WithTraceId<T>(string traceId, Func<T> func)`
-- `WithNewTraceId(Action action)`
-- `WithNewTraceId<T>(Func<T> func)`
-
-#### Query Methods
-- `QueryAsync(QueryOptions options, CancellationToken ct = default): Task<LogsResponse>`
-- `GetByTraceIdAsync(string traceId, CancellationToken ct = default): Task<List<LogEntry>>`
-- `GetAggregatedStatsAsync(AggregatedStatsOptions options, CancellationToken ct = default): Task<AggregatedStatsResponse>`
-
-#### Metrics
-- `GetMetrics(): ClientMetrics`
-- `ResetMetrics()`
-- `GetCircuitBreakerState(): CircuitState`
-
-#### Lifecycle
-- `FlushAsync(CancellationToken ct = default): Task`
-- `Dispose()`
-- `DisposeAsync(): ValueTask`
-
----
-
-## Supported Frameworks
-
-- .NET 6.0
-- .NET 7.0
-- .NET 8.0
-
----
-
-## License
-
-MIT
+See the [examples/](./examples) directory for complete working examples.
 
 ---
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or PR on [GitHub](https://github.com/logtide-dev/logtide-sdk-csharp).
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
----
+## License
 
-## Support
+MIT License - see [LICENSE](LICENSE) for details.
 
-- **Documentation**: [https://logtide.dev/docs](https://logtide.dev/docs)
-- **Issues**: [GitHub Issues](https://github.com/logtide-dev/logtide-sdk-csharp/issues)
+## Links
+
+- [LogTide Website](https://logtide.dev)
+- [Documentation](https://logtide.dev/docs/sdks/dotnet/)
+- [GitHub Issues](https://github.com/logtide-dev/logtide-sdk-csharp/issues)
